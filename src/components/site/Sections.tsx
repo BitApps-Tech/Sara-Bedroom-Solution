@@ -189,10 +189,10 @@ export function GrandBanner() {
 }
 
 const reels = [
-  { handle: "@sara.bedroom", title: "Styling a royal king bed", img: categories[0].image },
-  { handle: "@sara.grand.hotel", title: "Hotel-grade towels unboxed", img: categories[6].image },
-  { handle: "@sara.bedroom", title: "Satin pajama night routine", img: categories[7].image },
-  { handle: "@sara.bedroom", title: "Pillow stack perfection", img: categories[4].image },
+  { handle: "@sara.bedroom", title: "Styling a royal king bed", img: categories[0]!.image },
+  { handle: "@sara.grand.hotel", title: "Hotel-grade towels unboxed", img: categories[6]!.image },
+  { handle: "@sara.bedroom", title: "Satin pajama night routine", img: categories[7]!.image },
+  { handle: "@sara.bedroom", title: "Pillow stack perfection", img: categories[4]!.image },
 ];
 
 export function TikTokShowcase() {
