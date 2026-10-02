@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Crown, Heart, MapPin, Menu, Search, ShoppingBag } from "lucide-react";
+import { Heart, MapPin, Menu, Search, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { useStore } from "@/lib/store";
@@ -15,14 +15,12 @@ const nav = [
 
 export function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-3">
-      <span className="grid h-10 w-10 place-items-center rounded-full border border-gold/50 bg-gold-gradient text-primary-foreground shadow-gold">
-        <Crown className="h-5 w-5" />
-      </span>
-      <span className="leading-tight">
-        <span className="block font-display text-lg text-foreground">Sara Bedroom</span>
-        <span className="block text-[0.6rem] uppercase tracking-[0.3em] text-gold">Solution</span>
-      </span>
+    <Link to="/" className="flex items-center">
+      <img
+        src="/logo.jpeg"
+        alt="Sara Grand — Hotel Linens & Solutions"
+        className="h-12 w-auto object-contain"
+      />
     </Link>
   );
 }
