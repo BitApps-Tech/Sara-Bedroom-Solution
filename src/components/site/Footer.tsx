@@ -34,7 +34,15 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-border py-6 text-center text-xs text-muted-foreground">© 2003 - 2026 Sara Bedroom Solutions. All Rights Reserved.</div>
+      <div className="border-t border-border py-6 text-center text-xs text-muted-foreground">
+        <p>© 2026 Sara Bedroom Solution. All rights reserved.</p>
+        <p className="mt-1">
+          Designed & Developed by{" "}
+          <a href="https://bitappstech.com/" target="_blank" rel="noreferrer" className="text-gold hover:underline">
+            BitApps Tech
+          </a>
+        </p>
+      </div>
     </footer>
   );
 }

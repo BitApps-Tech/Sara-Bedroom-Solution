@@ -17,7 +17,7 @@ export function Logo() {
   return (
     <Link to="/" className="flex items-center">
       <img
-        src="/logo.jpeg"
+        src="/logo.png"
         alt="Sara Grand — Hotel Linens & Solutions"
         className="h-12 w-auto object-contain"
       />
