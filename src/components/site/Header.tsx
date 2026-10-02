@@ -19,7 +19,7 @@ export function Logo() {
       <img
         src="/logo.png"
         alt="Sara Grand — Hotel Linens & Solutions"
-        className="h-12 w-auto object-contain"
+        className="h-16 w-auto object-contain"
       />
     </Link>
   );
