@@ -19,7 +19,7 @@ export function Logo() {
       <img
         src="/logo.png"
         alt="Sara Grand — Hotel Linens & Solutions"
-        className="h-24 w-auto object-contain"
+        className="h-28 w-auto object-contain"
       />
     </Link>
   );
@@ -42,7 +42,7 @@ export function Header() {
         </div>
       </div>
       <header className="sticky top-0 z-40 glass border-x-0 border-t-0">
-        <div className="mx-auto flex min-h-24 max-w-7xl items-center justify-between gap-4 px-4 py-2">
+        <div className="mx-auto flex min-h-28 max-w-7xl items-center justify-between gap-4 px-4 py-2">
           <Logo />
           <nav className="hidden items-center gap-7 lg:flex">
             {nav.map((n) => (
