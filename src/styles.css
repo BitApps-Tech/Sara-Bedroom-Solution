@@ -121,3 +121,12 @@
   text-transform: uppercase;
   color: var(--gold);
 }
+
+.leaflet-container {
+  font: inherit;
+  background: oklch(0.22 0.035 265);
+}
+.leaflet-control-attribution {
+  font-size: 10px !important;
+  background: oklch(1 0 0 / 70%) !important;
+}

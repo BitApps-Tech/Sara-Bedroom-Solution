@@ -42,12 +42,65 @@ export const products: Product[] = [
 
 export const formatETB = (n: number) => `ETB ${n.toLocaleString("en-US")}`;
 
-export const branches = [
-  { name: "Gollgul Tower", detail: "1st Floor, Shop #106", q: "Gollgul Tower Addis Ababa" },
-  { name: "Century Mall", detail: "3rd Floor, Shop #338", q: "Century Mall Addis Ababa" },
-  { name: "Bole Medhanealem", detail: "Fana Plaza, Ground Floor", q: "Fana Plaza Bole Medhanealem Addis Ababa" },
-  { name: "Lebu", detail: "Panda Mall, Ground Floor", q: "Panda Mall Lebu Addis Ababa" },
-];
+export type Branch = {
+  id: string;
+  name: string;
+  detail: string;
+  area: string;
+  hours: string;
+  phone: string;
+  lat: number;
+  lng: number;
+  q: string;
+};
 
 export const PHONE = "0911340146";
+
+export const branches: Branch[] = [
+  {
+    id: "gollgul",
+    name: "Gollgul Tower",
+    detail: "1st Floor, Shop #106",
+    area: "Gollgul Tower, Addis Ababa",
+    hours: "Mon–Sat: 9:00 AM – 8:00 PM · Sun: 11:00 AM – 7:00 PM",
+    phone: PHONE,
+    lat: 9.015357,
+    lng: 38.78709,
+    q: "Gollgul Tower Addis Ababa",
+  },
+  {
+    id: "century",
+    name: "Century Mall",
+    detail: "3rd Floor, Shop #338",
+    area: "Century Mall, Gurd Shola, Addis Ababa",
+    hours: "Mon–Sat: 9:00 AM – 8:00 PM · Sun: 11:00 AM – 7:00 PM",
+    phone: PHONE,
+    lat: 9.019442,
+    lng: 38.81385,
+    q: "Century Mall Addis Ababa",
+  },
+  {
+    id: "bole",
+    name: "Bole Medhanealem",
+    detail: "Fana Plaza, Ground Floor",
+    area: "Fana Plaza, Bole Medhanealem, Addis Ababa",
+    hours: "Mon–Sat: 9:00 AM – 8:00 PM · Sun: 11:00 AM – 7:00 PM",
+    phone: PHONE,
+    lat: 8.996003,
+    lng: 38.79121,
+    q: "Fana Plaza Bole Medhanealem Addis Ababa",
+  },
+  {
+    id: "lebu",
+    name: "Lebu",
+    detail: "Panda Mall, Ground Floor",
+    area: "Panda Mall, Lebu, Addis Ababa",
+    hours: "Mon–Sat: 9:00 AM – 8:00 PM · Sun: 11:00 AM – 7:00 PM",
+    phone: PHONE,
+    lat: 8.957446,
+    lng: 38.726345,
+    q: "Panda Mall Lebu Addis Ababa",
+  },
+];
+
 export const mapsUrl = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;

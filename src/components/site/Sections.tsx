@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { BadgeCheck, Clock, Gem, Heart, MapPin, Navigation, Phone, Play, ShieldCheck, Sparkles, Eye, ShoppingBag } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import hero from "@/assets/hero.jpg";
 import grand from "@/assets/grand.jpg";
-import { branches, categories, formatETB, mapsUrl, PHONE, products, type Product } from "@/lib/data";
+import { branches, categories, formatETB, mapsUrl, PHONE, products, type Branch, type Product } from "@/lib/data";
 import { useStore } from "@/lib/store";
 
 export const btnGold = "inline-flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-7 py-3.5 text-sm font-semibold tracking-wide text-primary-foreground shadow-gold transition hover:brightness-110";
@@ -138,32 +138,92 @@ export function BrandStory() {
   );
 }
 
+type BranchMapProps = {
+  branches: Branch[];
+  selectedId: string;
+  onSelect: (id: string) => void;
+};
+
 export function BranchLocator() {
+  const [selectedId, setSelectedId] = useState(branches[0]!.id);
+  const [MapView, setMapView] = useState<ComponentType<BranchMapProps> | null>(null);
+  const selected = branches.find((b) => b.id === selectedId) ?? branches[0]!;
+
+  useEffect(() => {
+    let alive = true;
+    void import("./BranchMap").then((m) => {
+      if (alive) setMapView(() => m.BranchMap);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-24">
-      <SectionHead eyebrow="Visit Us" title="Four Boutiques in Addis Ababa" />
-      <div className="mt-12 grid gap-6 lg:grid-cols-3">
-        <div className="grid gap-4 sm:grid-cols-2 lg:col-span-2">
-          {branches.map((b, i) => (
-            <div key={b.name} className="glass rounded-2xl p-6 transition hover:border-gold hover:shadow-gold">
-              <span className="font-display text-3xl text-gold-gradient">0{i + 1}</span>
-              <h3 className="mt-2 text-2xl text-foreground">{b.name}</h3>
-              <p className="mt-1 text-muted-foreground">{b.detail}</p>
-              <a href={mapsUrl(b.q)} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm text-gold hover:underline">
-                <Navigation className="h-4 w-4" /> Get Directions
-              </a>
-            </div>
-          ))}
+      <SectionHead
+        eyebrow="Addis Ababa Branches"
+        title="Discover Sara Bedroom in Addis Ababa"
+        sub="Tap a boutique on the map or in the list to explore hours, directions, and details."
+      />
+      <div className="mt-12 grid gap-6 lg:grid-cols-5">
+        <div className="relative overflow-hidden rounded-2xl border border-border lg:col-span-3">
+          <div className="h-[420px] bg-muted/30 lg:h-[520px]">
+            {MapView ? (
+              <MapView branches={branches} selectedId={selectedId} onSelect={setSelectedId} />
+            ) : (
+              <div className="grid h-full place-items-center text-sm text-muted-foreground">Loading map…</div>
+            )}
+          </div>
+          <div className="pointer-events-none absolute inset-x-4 bottom-4 rounded-xl border border-border/80 bg-background/90 px-4 py-3 shadow-gold backdrop-blur">
+            <p className="font-display text-lg text-foreground">{selected.name}</p>
+            <p className="text-sm text-gold">{selected.area}</p>
+          </div>
         </div>
-        <div className="rounded-2xl border border-gold/50 bg-gold/10 p-8 shadow-gold">
-          <Clock className="h-8 w-8 text-gold" />
-          <h3 className="mt-4 text-2xl text-foreground">Opening Hours</h3>
-          <dl className="mt-6 space-y-4">
-            <div className="flex justify-between border-b border-border pb-3"><dt className="text-muted-foreground">Mon – Sat</dt><dd>9:00 AM – 8:00 PM</dd></div>
-            <div className="flex justify-between border-b border-border pb-3"><dt className="text-muted-foreground">Sunday</dt><dd>11:00 AM – 7:00 PM</dd></div>
-          </dl>
-          <a href={`tel:${PHONE}`} className={`${btnGold} mt-8 w-full`}><Phone className="h-4 w-4" /> Call Direct: {PHONE}</a>
-          <a href={mapsUrl("Sara Bedroom Solution Addis Ababa")} target="_blank" rel="noreferrer" className={`${btnGlass} mt-3 w-full`}><Navigation className="h-4 w-4" /> Get Directions</a>
+
+        <div className="flex flex-col gap-4 lg:col-span-2">
+          <div className="rounded-2xl border border-gold/50 bg-gold/10 p-6 shadow-gold">
+            <h3 className="font-display text-3xl text-foreground">{selected.name}</h3>
+            <p className="mt-1 text-gold">{selected.area}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{selected.detail}</p>
+            <p className="mt-4 flex items-start gap-2 text-sm text-foreground/90">
+              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+              {selected.hours}
+            </p>
+            <a href={`tel:${selected.phone}`} className="mt-3 inline-flex items-center gap-2 text-sm text-foreground/90 hover:text-gold">
+              <Phone className="h-4 w-4 text-gold" />
+              {selected.phone}
+            </a>
+            <a
+              href={mapsUrl(selected.q)}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold hover:underline"
+            >
+              <Navigation className="h-4 w-4" />
+              View Branch Details
+            </a>
+          </div>
+
+          <ul className="space-y-1">
+            {branches.map((b) => {
+              const active = b.id === selectedId;
+              return (
+                <li key={b.id}>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedId(b.id)}
+                    className={`w-full rounded-xl px-4 py-3 text-left transition ${
+                      active ? "bg-gold/15 ring-1 ring-gold/50" : "hover:bg-accent"
+                    }`}
+                  >
+                    <span className="block font-display text-xl text-foreground">{b.name}</span>
+                    <span className="block text-sm text-gold">{b.area}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </section>
